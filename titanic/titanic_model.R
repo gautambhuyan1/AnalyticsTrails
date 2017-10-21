@@ -203,3 +203,22 @@ ggplot(data.combined[1:893,], aes(x = MultiCabin, fill = Survived)) +
 #  Models
 #
 #--------------------------------------------
+
+library(randomForest)
+
+
+rf.train.1 <- data.combined[1:891, c("Title", "Pclass")]
+rf.label <- as.factor(train$Survived)
+
+set.seed(1234)
+rf.1 <- randomForest(x=rf.train.1, y=rf.label, importance = TRUE, ntree = 1000)
+rf.1
+varImpPlot(rf.1)
+
+
+rf.train.2 <- data.combined[1:891, c("Title", "Pclass", "Familysize")]
+
+set.seed(1234)
+rf.2 <- randomForest(x=rf.train.2, y=rf.label, importance = TRUE, ntree = 1000)
+rf.2
+varImpPlot(rf.2)
